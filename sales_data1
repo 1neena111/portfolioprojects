@@ -1,0 +1,69 @@
+ /*to find the total sales done in every state for customer_20_50 &sales_2015 
+table by using 'joins'and 'group by command'*/
+
+/* lets look at the table customer_20_60*/
+
+select *
+from customer_20_60
+
+/* lets look at the table sales_2015*/
+
+select*
+from  sales_2015
+
+/*notice that the "customer_id" column in the customer_20_60 table refers to 
+the "customer_id" in the sales_2015 table.The relationship between the two
+tables above is the "customer_id" column*/
+
+/*inner join*/
+select
+     a.state,
+     a.customer_id,
+	 b.sales
+	 from customer_20_60 as a
+	 inner join sales as b
+	 on a. customer_id = b. customer_id
+	 order by customer_id;
+	 
+	 /* to find total sales for each state ,create a new table with 
+	 the results of above query*/
+	 
+	 create table state_sale(
+		 state varchar,
+	     customer_id varchar,
+		 sales int);
+		 
+	/*import data from csv file into the table state_sales*/
+	
+	copy state_sale
+	from 'C:\post\state_sales.csv' delimiter ',' csv header;
+	
+	/*lets see the table state_sales just created*/
+	
+	select*
+	from state_sale
+	
+	/*the total sales done in every state for customer_20_50 &sales_2015 
+table*/
+		 
+	
+	 select state,
+	 sum(sales) as total_sales
+	 from state_sale
+	 group by state
+	 order by total_sales desc;
+	 
+	
+	 
+	 
+
+
+	 
+
+
+		 
+	
+	 
+
+
+
